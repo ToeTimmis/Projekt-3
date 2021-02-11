@@ -17,6 +17,24 @@ listForm.addEventListener("submit", (e) => {
     listInput.value = "";
 });
 
+function ReminderBox(items){
+    let box = document.createElement("ul");
+    items.foreach((item) => {
+        let reminderBoxItem = document.createElement("li");
+        reminderBoxItem.innerText = item;
+        reminderBoxItem.classList.add("Reminder-Box-Item");
+        reminderBoxItem.addEventListener("Click", removeItem);
+        box.append(reminderBoxItem);
+    });
+    return box;
+}
+
+function removeItem(event){
+    let removeItem = event.target.innerText;
+    reminders = reminders.filter((item) => item !== removeItem);
+    UpdateReminders();
+}
+
 function UpdateReminders(){ //inte klar ännu
     SaveList();
     listRoot.innerHTML = "";
