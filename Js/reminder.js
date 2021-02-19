@@ -10,10 +10,10 @@ let listInput = document.querySelector("[data-list-input]");
 
 listForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (listInput.Value.trim() === ""){
+    if (listInput.value.trim() === ""){
         return;
     }
-    reminders.push(CreateReminder(listInput.Value.trim()));
+    reminders.push(CreateReminder(listInput.value.trim()));
     UpdateReminders();
     listInput.value = "";
 });
@@ -27,7 +27,7 @@ function CreateReminder(name) {
 
 function ReminderBox(items){
     let box = document.createElement("ul");
-    items.foreach((item) => {
+    items.forEach((item) => {
         let reminderBoxItem = document.createElement("li");
         reminderBoxItem.innerText = item.name;
         reminderBoxItem.setAttribute("data-id", item.id)
