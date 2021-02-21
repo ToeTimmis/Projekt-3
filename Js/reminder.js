@@ -7,6 +7,7 @@ let reminders = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_REMINDERS)) ||
 let listRoot = document.querySelector("#list-root");
 let listForm = document.querySelector("[data-list-form]");
 let listInput = document.querySelector("[data-list-input]");
+let timeInput = document.querySelector("[time-input]")
 
 listForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -25,17 +26,17 @@ function CreateReminder(name) {
     };
   }
 
-function ReminderBox(items){
-    let box = document.createElement("ul");
+function Reminderlist(items){
+    let list = document.createElement("ul");
     items.forEach((item) => {
-        let reminderBoxItem = document.createElement("li");
-        reminderBoxItem.innerText = item.name;
-        reminderBoxItem.setAttribute("data-id", item.id)
-        reminderBoxItem.classList.add("Reminder-Box-Item");
-        reminderBoxItem.addEventListener("Click", removeItem);
-        box.append(reminderBoxItem);
+        let reminderlistItem = document.createElement("li");
+        reminderlistItem.innerText = item.name;
+        reminderlistItem.setAttribute("data-id", item.id);
+        reminderlistItem.classList.add("reminder-list-item");
+        reminderlistItem.addEventListener("click", removeItem);
+        list.append(reminderlistItem);
     });
-    return box;
+    return list;
 }
 
 function removeItem(event){
@@ -47,7 +48,8 @@ function removeItem(event){
 function UpdateReminders(){ 
     SaveList();
     listRoot.innerHTML = "";
-    listRoot.append(ReminderBox(reminders));
+    listRoot.append(Reminderlist(reminders));
+
 }
 
 function SaveList(){

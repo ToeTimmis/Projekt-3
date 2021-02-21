@@ -6,4 +6,9 @@ header{
     color: white;
 }
 
+.reminder-list-item:hover {
+    cursor: pointer;
+    text-decoration: line-through 2px;
+}
+
 
