@@ -1,28 +1,33 @@
 "use strict";
 
 const LOCAL_STORAGE_KEY_REMINDERS = "app.reminders.advanced";
+const LOCAL_STORAGE_KEY_TIMES = "app.times.advanced"
 
 let reminders = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_REMINDERS)) || [];
+let times = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_TIMES)) || [];
 
 let listRoot = document.querySelector("#list-root");
 let listForm = document.querySelector("[data-list-form]");
 let listInput = document.querySelector("[data-list-input]");
-let timeInput = document.querySelector("[time-input]")
+let timeInput = document.querySelector("[time-input]");
 
 listForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (listInput.value.trim() === ""){
         return;
     }
-    reminders.push(CreateReminder(listInput.value.trim()));
+    reminders.push(CreateReminder(listInput.value.trim(), timeInput.value));
+    times.push(timeInput.value);
     UpdateReminders();
     listInput.value = "";
+    timeInput.value = "";
 });
 
-function CreateReminder(name) {
+function CreateReminder(name, time) {
     return {
       id: Date.now().toString(),
       name: name,
+      time: time,
     };
   }
 
@@ -30,7 +35,7 @@ function Reminderlist(items){
     let list = document.createElement("ul");
     items.forEach((item) => {
         let reminderlistItem = document.createElement("li");
-        reminderlistItem.innerText = item.name;
+        reminderlistItem.innerHTML = item.name + " " + item.time;
         reminderlistItem.setAttribute("data-id", item.id);
         reminderlistItem.classList.add("reminder-list-item");
         reminderlistItem.addEventListener("click", removeItem);
@@ -54,6 +59,7 @@ function UpdateReminders(){
 
 function SaveList(){
     localStorage.setItem(LOCAL_STORAGE_KEY_REMINDERS, JSON.stringify(reminders));
+    localStorage.setItem(LOCAL_STORAGE_KEY_TIMES, JSON.stringify(times));
 }
 
 UpdateReminders();
