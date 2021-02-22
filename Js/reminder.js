@@ -62,4 +62,21 @@ function SaveList(){
     localStorage.setItem(LOCAL_STORAGE_KEY_TIMES, JSON.stringify(times));
 }
 
+function clockTime(){
+    let currentTime = new Date();
+    let currentHour = currentTime.getHours();
+    let currentMinute = currentTime.getMinutes();
+    let currentSecond = currentTime.getSeconds();
+
+    currentHour = (currentHour < 10 ? "0" : "") + currentHour;
+    currentMinute = (currentMinute < 10 ? "0" : "") + currentMinute;
+    currentSecond = (currentSecond < 10 ? "0" : "") + currentSecond;
+
+    let timeDisplayed = currentHour + ":" + currentMinute + ":" + currentSecond;
+    document.getElementById("clock").firstChild.nodeValue = timeDisplayed;
+}
+
+clockTime();
+setInterval("clockTime()", 1000);
+
 UpdateReminders();
