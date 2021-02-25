@@ -11,7 +11,7 @@ let listForm = document.querySelector("[data-list-form]");
 let listInput = document.querySelector("[data-list-input]");
 let timeInput = document.querySelector("[time-input]");
 
-let reminderSound = new Audio("Js/Alarm.m4a");
+let reminderSound = new Audio("Js/Alarm.mp3");
 
 listForm.addEventListener("submit", (e) => {
     e.preventDefault();
