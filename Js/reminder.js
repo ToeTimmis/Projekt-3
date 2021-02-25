@@ -11,6 +11,8 @@ let listForm = document.querySelector("[data-list-form]");
 let listInput = document.querySelector("[data-list-input]");
 let timeInput = document.querySelector("[time-input]");
 
+let reminderSound = new Audio("Js/Alarm.m4a");
+
 listForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (listInput.value.trim() === ""){
@@ -62,21 +64,32 @@ function SaveList(){
     localStorage.setItem(LOCAL_STORAGE_KEY_TIMES, JSON.stringify(times));
 }
 
-function clockTime(){
+function clockTime(item){
     let currentTime = new Date();
     let currentHour = currentTime.getHours();
     let currentMinute = currentTime.getMinutes();
     let currentSecond = currentTime.getSeconds();
 
+
     currentHour = (currentHour < 10 ? "0" : "") + currentHour;
     currentMinute = (currentMinute < 10 ? "0" : "") + currentMinute;
     currentSecond = (currentSecond < 10 ? "0" : "") + currentSecond;
+
+    let currentTimeDetector = currentHour.toString() + ":" + currentMinute.toString();
+
+    for (let i = 0; i < item.length; i++){
+        if(currentTimeDetector == item[i]){
+            console.log("Success");
+            reminderSound.play();
+        }
+    }
+    
 
     let timeDisplayed = currentHour + ":" + currentMinute + ":" + currentSecond;
     document.getElementById("clock").firstChild.nodeValue = timeDisplayed;
 }
 
-clockTime();
-setInterval("clockTime()", 1000);
+clockTime(times);
+setInterval("clockTime(times)", 1000);
 
 UpdateReminders();
