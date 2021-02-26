@@ -39,16 +39,20 @@ function Reminderlist(items){
         let reminderlistItem = document.createElement("li");
         reminderlistItem.innerHTML = item.name + " " + item.time;
         reminderlistItem.setAttribute("data-id", item.id);
+        reminderlistItem.setAttribute("data-time", item.time);
         reminderlistItem.classList.add("reminder-list-item");
         reminderlistItem.addEventListener("click", removeItem);
         list.append(reminderlistItem);
+        console.log(item.time)
     });
     return list;
 }
 
 function removeItem(event){
     let removeItem = event.target.getAttribute("data-id");
+    let removeTime = event.target.getAttribute("data-time");
     reminders = reminders.filter((item) => item.id !== removeItem);
+    times = times.filter((item) => item !== removeTime);
     UpdateReminders();
 }
 
@@ -79,7 +83,6 @@ function clockTime(item){
 
     for (let i = 0; i < item.length; i++){
         if(currentTimeDetector == item[i]){
-            console.log("Success");
             reminderSound.play();
         }
     }
