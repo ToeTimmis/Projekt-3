@@ -1,10 +1,8 @@
 "use strict";
 
 const LOCAL_STORAGE_KEY_REMINDERS = "app.reminders.advanced";
-const LOCAL_STORAGE_KEY_TIMES = "app.times.advanced"
 
 let reminders = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_REMINDERS)) || [];
-let times = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_TIMES)) || [];
 
 let listRoot = document.querySelector("#list-root");
 let listForm = document.querySelector("[data-list-form]");
@@ -19,7 +17,6 @@ listForm.addEventListener("submit", (e) => {
         return;
     }
     reminders.push(CreateReminder(listInput.value.trim(), timeInput.value));
-    times.push(timeInput.value);
     UpdateReminders();
     listInput.value = "";
     timeInput.value = "";
@@ -43,7 +40,6 @@ function Reminderlist(items){
         reminderlistItem.classList.add("reminder-list-item");
         reminderlistItem.addEventListener("click", removeItem);
         list.append(reminderlistItem);
-        console.log(item.time)
     });
     return list;
 }
@@ -52,7 +48,6 @@ function removeItem(event){
     let removeItem = event.target.getAttribute("data-id");
     let removeTime = event.target.getAttribute("data-time");
     reminders = reminders.filter((item) => item.id !== removeItem);
-    times = times.filter((item) => item !== removeTime);
     UpdateReminders();
 }
 
@@ -65,7 +60,6 @@ function UpdateReminders(){
 
 function SaveList(){
     localStorage.setItem(LOCAL_STORAGE_KEY_REMINDERS, JSON.stringify(reminders));
-    localStorage.setItem(LOCAL_STORAGE_KEY_TIMES, JSON.stringify(times));
 }
 
 function clockTime(item){
@@ -82,7 +76,7 @@ function clockTime(item){
     let currentTimeDetector = currentHour.toString() + ":" + currentMinute.toString();
 
     for (let i = 0; i < item.length; i++){
-        if(currentTimeDetector == item[i]){
+        if(currentTimeDetector == item[i].time){
             reminderSound.play();
         }
     }
@@ -92,7 +86,7 @@ function clockTime(item){
     document.getElementById("clock").firstChild.nodeValue = timeDisplayed;
 }
 
-clockTime(times);
-setInterval("clockTime(times)", 1000);
+clockTime(reminders);
+setInterval("clockTime(reminders)", 1000);
 
 UpdateReminders();
