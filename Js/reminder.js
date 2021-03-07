@@ -27,6 +27,7 @@ function CreateReminder(name, time) {
       id: Date.now().toString(),
       name: name,
       time: time,
+      bold: false,
     };
   }
 
@@ -34,7 +35,12 @@ function Reminderlist(items){
     let list = document.createElement("ul");
     items.forEach((item) => {
         let reminderlistItem = document.createElement("li");
-        reminderlistItem.innerHTML = item.name + " " + item.time;
+        if (item.bold == true){
+            reminderlistItem.innerHTML = item.name.bold() + " " + item.time.bold();
+        }
+        else {
+            reminderlistItem.innerHTML = item.name + " " + item.time;
+        }
         reminderlistItem.setAttribute("data-id", item.id);
         reminderlistItem.classList.add("reminder-list-item");
         reminderlistItem.addEventListener("click", removeItem);
@@ -53,7 +59,6 @@ function UpdateReminders(){
     SaveList();
     listRoot.innerHTML = "";
     listRoot.append(Reminderlist(reminders));
-
 }
 
 function SaveList(){
@@ -76,6 +81,8 @@ function clockTime(item){
     for (let i = 0; i < item.length; i++){
         if(currentTimeDetector == item[i].time){
             reminderSound.play();
+            item[i].bold = true;
+            UpdateReminders();
         }
     }
     
