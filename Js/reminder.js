@@ -36,7 +36,6 @@ function Reminderlist(items){
         let reminderlistItem = document.createElement("li");
         reminderlistItem.innerHTML = item.name + " " + item.time;
         reminderlistItem.setAttribute("data-id", item.id);
-        reminderlistItem.setAttribute("data-time", item.time);
         reminderlistItem.classList.add("reminder-list-item");
         reminderlistItem.addEventListener("click", removeItem);
         list.append(reminderlistItem);
@@ -46,7 +45,6 @@ function Reminderlist(items){
 
 function removeItem(event){
     let removeItem = event.target.getAttribute("data-id");
-    let removeTime = event.target.getAttribute("data-time");
     reminders = reminders.filter((item) => item.id !== removeItem);
     UpdateReminders();
 }
