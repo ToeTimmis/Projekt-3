@@ -11,10 +11,12 @@ header{
 }
 
 #clock {
+    margin-left: 15vw;
     font-size: 5rem;
 }
 
 li {
+    margin-left: 10vw;
     font-size: 2rem;
 }
 
@@ -32,10 +34,22 @@ input{
     font-size: 2rem;
 }
 
+input[type="text"] {
+    margin-left: 10vw;
+}
+
+input[type="time"] {
+    cursor: text;
+}
+
 button {
     background: transparent;
     outline: none;
     color: inherit;
     font-family: 'VT323', monospace;
     font-size: 2rem;
+}
+
+button:hover {
+    cursor: pointer;
 }
